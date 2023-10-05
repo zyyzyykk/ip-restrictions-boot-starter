@@ -1,0 +1,53 @@
+{
+  "groups": [
+    {
+      "name": "kkbapps.ip",
+      "type": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
+      "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "kkbapps.ip.nginxProxy",
+      "type": "java.lang.Boolean",
+      "description": "ip获取方式（是否有nginx代理）",
+      "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
+      "defaultValue": true
+    },
+    {
+      "name": "kkbapps.ip.cycle",
+      "type": "java.lang.Long",
+      "description": "监控周期（秒）",
+      "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
+      "defaultValue": 86400
+    },
+    {
+      "name": "kkbapps.ip.requestCountLimit",
+      "type": "java.lang.Long",
+      "description": "周期内访问次数限制",
+      "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
+      "defaultValue": 5
+    },
+    {
+      "name": "kkbapps.ip.requestIntervalLimit",
+      "type": "java.lang.Long",
+      "description": "周期内访问间隔限制（毫秒）",
+      "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
+      "defaultValue": 6000
+    },
+    {
+      "name": "kkbapps.ip.forbidIp",
+      "type": "java.lang.Boolean",
+      "description": "是否封禁IP",
+      "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
+      "defaultValue": false
+    },
+    {
+      "name": "kkbapps.ip.forbidIpForever",
+      "type": "java.lang.Boolean",
+      "description": "封禁IP是否为永久",
+      "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
+      "defaultValue": false
+    }
+  ]
+}
