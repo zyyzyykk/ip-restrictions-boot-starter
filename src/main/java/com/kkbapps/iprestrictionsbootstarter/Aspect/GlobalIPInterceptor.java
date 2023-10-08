@@ -2,6 +2,7 @@ package com.kkbapps.iprestrictionsbootstarter.Aspect;
 
 
 import com.kkbapps.iprestrictionsbootstarter.Annotation.EnableIPLimit;
+import com.kkbapps.iprestrictionsbootstarter.Exception.IpRequestErrorException;
 import com.kkbapps.iprestrictionsbootstarter.Service.IpHandleService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -28,7 +29,7 @@ public class GlobalIPInterceptor {
     }
 
     @Before("requestInterceptor()")
-    public void DoInterceptor(JoinPoint point) throws NoSuchMethodException {
+    public void DoInterceptor(JoinPoint point) throws NoSuchMethodException, IpRequestErrorException {
         Object target = point.getTarget();
         Object[] args = point.getArgs();
         String methodName = point.getSignature().getName();

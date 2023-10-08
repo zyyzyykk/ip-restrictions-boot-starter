@@ -6,12 +6,11 @@ import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-
-@Component("settingsConfig")
-@ConfigurationProperties(prefix = "kkbapps.ip")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Component(value = "kkbappsIPLimitSettingsConfig")
+@ConfigurationProperties(prefix = "kkbapps.ip")
 public class SettingsConfig {
 
     /**
@@ -20,9 +19,9 @@ public class SettingsConfig {
     private boolean nginxProxy = true;
 
     /**
-     * 监控周期（秒）
+     * 监控周期（分钟）
      */
-    private Long cycle = 24L * 60 * 60;
+    private Long cycle = 1440L;
 
     /**
      * 周期内访问次数限制
