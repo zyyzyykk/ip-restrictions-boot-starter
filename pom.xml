@@ -11,7 +11,7 @@
 
     <groupId>com.kkbapps</groupId>
     <artifactId>ip-restrictions-boot-starter</artifactId>
-    <version>1.0.3-RELEASE</version>
+    <version>1.0.4-RELEASE</version>
     <name>ip-restrictions-boot-starter</name>
     <description>ip-restrictions-boot-starter</description>
 

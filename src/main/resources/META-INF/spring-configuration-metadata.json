@@ -17,9 +17,9 @@
     {
       "name": "kkbapps.ip.cycle",
       "type": "java.lang.Long",
-      "description": "监控周期（分钟）",
+      "description": "监控周期（天）",
       "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
-      "defaultValue": 1440
+      "defaultValue": 1
     },
     {
       "name": "kkbapps.ip.requestCountLimit",

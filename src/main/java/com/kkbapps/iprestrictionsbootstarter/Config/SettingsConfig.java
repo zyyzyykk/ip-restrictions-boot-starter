@@ -19,9 +19,9 @@ public class SettingsConfig {
     private boolean nginxProxy = true;
 
     /**
-     * 监控周期（分钟）
+     * 监控周期（天）
      */
-    private Long cycle = 1440L;
+    private Long cycle = 1L;
 
     /**
      * 周期内访问次数限制
