@@ -5,7 +5,7 @@
 >
 > 网站：http://git.kkbapps.com/kk/ip-restrictions-boot-starter
 >
-> 更新时间：2023-10-09
+> 更新时间：2023-10-14
 
 ### 使用
 
@@ -16,7 +16,7 @@
     <groupId>com.kkbapps</groupId>
     <artifactId>ip-restrictions-boot-starter</artifactId>
     <!-- 建议引入最新RELEASE版本 -->
-    <version>1.0.3-RELEASE</version>
+    <version>1.0.4-RELEASE</version>
 </dependency>
 ```
 
