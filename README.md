@@ -5,7 +5,7 @@
 >
 > 网站：http://git.kkbapps.com/kk/ip-restrictions-boot-starter
 >
-> 更新时间：2023-10-14
+> 更新时间：2023-10-23
 
 ### 使用
 
@@ -16,7 +16,7 @@
     <groupId>com.kkbapps</groupId>
     <artifactId>ip-restrictions-boot-starter</artifactId>
     <!-- 建议引入最新RELEASE版本 -->
-    <version>1.0.4-RELEASE</version>
+    <version>1.0.5-RELEASE</version>
 </dependency>
 ```
 
@@ -45,13 +45,17 @@ kkbapps.ip.forbid-ip=true	# 是否封禁超出限制的ip
 
 ### 更新记录
 
-##### 1.0.4-RELEASE：
+##### 1.0.5-RELEASE：修复监控时间bug
 
 更新了监控时间最小单位为天，默认监控周期为一天，取值范围（1-30）
 
+##### 1.0.4-RELEASE：
+
+更新了监控时间最小单位为天，默认监控周期为一天，取值范围（1-30）**（监控时间bug）**
+
 ##### 1.0.3-RELEASE：
 
-更新了监控时间最小单位为分钟，默认监控周期为一天
+更新了监控时间最小单位为分钟，默认监控周期为一天**（监控时间bug）**
 
 ##### 1.0.2-RELEASE：
 

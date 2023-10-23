@@ -99,7 +99,7 @@ public class IpHandleService {
     /**
      * 定时清除与输出ip信息
      */
-    @Scheduled(cron = "0 * * */#{kkbappsIPLimitSettingsConfig.cycle} *  ?")
+    @Scheduled(cron = "0 0 0 */#{kkbappsIPLimitSettingsConfig.cycle} *  ?")
     public void reset(){
 
         // 输出信息
