@@ -33,7 +33,7 @@ public String needIPLimit(String param) {
   - interval：监控周期内同一IP两次访问最小间隔时间（毫秒）
   - 若不添加注解参数，则配置取决于application.properties中的自定义配置以及默认值
 
-3.在 application.properties 中可进行自定义配置属性：
+3.在 `application.properties` 中可进行自定义配置属性：
 
 ```properties
 # 相关配置以kkbapps.ip开头，其他配置见提示
