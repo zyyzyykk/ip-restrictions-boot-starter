@@ -6,6 +6,7 @@ import com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig;
 import com.kkbapps.iprestrictionsbootstarter.Entity.IpRequestInfo;
 import com.kkbapps.iprestrictionsbootstarter.Enum.IpRequestErrorEnum;
 import com.kkbapps.iprestrictionsbootstarter.Exception.IpRequestErrorException;
+import com.kkbapps.iprestrictionsbootstarter.Utils.NetUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -40,14 +41,13 @@ public class IpHandleService {
     public void ipVerification(Method method, EnableIPLimit enableIpLimit) {
         IpRequestErrorException ipRequestErrorException = null;
 
-        // 当前访问的ip
-        String ip = settingsConfig.isNginxProxy() ?
-                httpServletRequest.getHeader("X-Real-IP") : httpServletRequest.getRemoteAddr();
+        // 获取当前访问的ip
+        String ip = NetUtil.getIpAddress(httpServletRequest);
 
         // 记录访问日志
         printRequestLog(method, ip);
 
-        // 查找黑白名单
+        // todo 查找黑白名单
 
 
         // 判断ip是否已被封禁
@@ -61,6 +61,7 @@ public class IpHandleService {
 
         // 获取当前ip在周期内已访问的次数
         IpRequestInfo ipRequestInfo = IPRequestMap.get(ip);
+
         // 周期内第一次访问
         if(ipRequestInfo == null) {
             IPRequestMap.put(ip,new IpRequestInfo(1,new Date()));

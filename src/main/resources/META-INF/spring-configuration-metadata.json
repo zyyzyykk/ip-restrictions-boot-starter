@@ -8,13 +8,6 @@
   ],
   "properties": [
     {
-      "name": "kkbapps.ip.nginxProxy",
-      "type": "java.lang.Boolean",
-      "description": "ip获取方式（是否有nginx代理）",
-      "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
-      "defaultValue": true
-    },
-    {
       "name": "kkbapps.ip.cycle",
       "type": "java.lang.Long",
       "description": "监控周期（天）",
@@ -26,14 +19,14 @@
       "type": "java.lang.Long",
       "description": "周期内访问次数限制",
       "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
-      "defaultValue": 5
+      "defaultValue": 240
     },
     {
       "name": "kkbapps.ip.requestIntervalLimit",
       "type": "java.lang.Long",
       "description": "周期内访问间隔限制（毫秒）",
       "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
-      "defaultValue": 6000
+      "defaultValue": 300000
     },
     {
       "name": "kkbapps.ip.forbidIp",

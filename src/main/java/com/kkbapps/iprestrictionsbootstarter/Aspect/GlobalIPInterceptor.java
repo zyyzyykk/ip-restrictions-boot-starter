@@ -41,8 +41,6 @@ public class GlobalIPInterceptor {
 
         // 进行IP检测与拦截
         ipHandleService.ipVerification(method, enableIpLimit);
-
-
     }
 
 

@@ -14,11 +14,6 @@ import org.springframework.stereotype.Component;
 public class SettingsConfig {
 
     /**
-     * ip获取方式（是否有nginx代理）
-     */
-    private boolean nginxProxy = true;
-
-    /**
      * 监控周期（天）
      */
     private Long cycle = 1L;
@@ -26,12 +21,12 @@ public class SettingsConfig {
     /**
      * 周期内访问次数限制
      */
-    private Long requestCountLimit = 5L;
+    private Long requestCountLimit = 240L;
 
     /**
      * 周期内访问间隔限制（毫秒）
      */
-    private Long requestIntervalLimit = 6000L;
+    private Long requestIntervalLimit = 300000L;
 
 
     /**
