@@ -6,8 +6,9 @@ public enum IpRequestErrorEnum {
 
     REQUEST_INTERVAL_EXCEEDED(2,"访问频率超出限制"),
 
-    FORBID_IP(3,"当前ip已被封禁");
+    FORBID_IP(3,"当前ip已被封禁"),
 
+    BLACK_LIST_IP(4,"当前ip已被加入黑名单");
     private Integer state;
     private String desc;
 

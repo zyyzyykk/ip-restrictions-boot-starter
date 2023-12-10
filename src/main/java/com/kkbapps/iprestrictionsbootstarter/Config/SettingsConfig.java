@@ -40,4 +40,16 @@ public class SettingsConfig {
      */
     private boolean forbidIpForever = false;
 
+    /**
+     * ip黑名单
+     */
+    private String[] ipBlackList = null;
+
+
+    /**
+     * ip白名单
+     */
+    private String[] ipWhiteList = null;
+
+
 }

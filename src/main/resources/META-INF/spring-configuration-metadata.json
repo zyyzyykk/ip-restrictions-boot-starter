@@ -41,6 +41,20 @@
       "description": "是否永久封禁超出限制的IP（默认周期内封禁）",
       "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
       "defaultValue": false
+    },
+    {
+      "name": "kkbapps.ip.ipBlackList",
+      "type": "java.lang.String[]",
+      "description": "ip黑名单",
+      "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
+      "defaultValue": null
+    },
+    {
+      "name": "kkbapps.ip.ipWhiteList",
+      "type": "java.lang.String[]",
+      "description": "ip白名单",
+      "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
+      "defaultValue": null
     }
   ]
 }

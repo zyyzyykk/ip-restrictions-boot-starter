@@ -1,5 +1,5 @@
 # ip-restrictions-boot-starter
-> springboot项目中实现请求IP自动限制与拦截
+> SpringBoot项目中实现请求IP自动限制与拦截
 >
 > Implementing IP request interception and restriction in Spring Boot.
 >
@@ -21,7 +21,7 @@
     <groupId>com.kkbapps</groupId>
     <artifactId>ip-restrictions-boot-starter</artifactId>
     <!-- 建议引入最新RELEASE版本 -->
-    <version>1.1.0-RELEASE</version>
+    <version>1.1.2-RELEASE</version>
 </dependency>
 ```
 
@@ -44,15 +44,42 @@ public String needIPLimit(String param) {
 kkbapps.ip.forbid-ip=true	# 是否封禁超出限制的ip，默认监控周期内有效
 ```
 
+4.配置ip黑白名单：**1.1.2及以上版本**
+
+- .properties文件中配置：
+
+  ```properties
+  # 配置ip黑名单
+  kkbapps.ip.ip-black-list[0]=192.168.42.1
+  kkbapps.ip.ip-black-list[1]=192.168.42.2
+  ```
+
+- .yml文件中配置：
+
+  ```yml
+  # 配置ip黑名单
+  kkbapps:
+    ip:
+      ip-black-list:
+        - 192.168.42.1
+        - 192.168.42.2
+  ```
+
 ### 💡 说明
 
-1.拦截采用AOP实现，**@EnableIPLimit** 注解建议添加在 Controller层、Service层的方法上，防止动态代理失效
+1.`ip-restrictions-boot-starter` 是一个基于SpringBoot框架的maven依赖包，能够对特定方法、特定IP的请求进行限制与拦截
 
-2.当请求访问超出限制，会抛出 **IpRequestErrorException** 异常
+2.拦截采用AOP实现，**@EnableIPLimit** 注解建议添加在 Controller层、Service层的方法上，防止动态代理失效
+
+3.当请求访问超出限制，会抛出 **IpRequestErrorException** 异常，可对此异常进行捕获
 
 ### 👨‍💻 更新记录
 
-##### 1.1.0-RELEASE：latest
+##### 1.1.2-RELEASE：latest
+
+新增ip黑白名单配置：黑名单ip直接拒绝请求，白名单ip直接放行
+
+##### 1.1.0-RELEASE：
 
 监控粒度由请求ip变为请求ip+请求方法，实现更细粒度的监控
 
@@ -64,7 +91,7 @@ kkbapps.ip.forbid-ip=true	# 是否封禁超出限制的ip，默认监控周期�
 
 修复监控时间bug，设置监控时间最小单位为天，默认监控周期为一天，取值范围（1-30）
 
-##### 1.0.4-RELEASE、1.0.3-RELEASE：
+##### 1.0.3-RELEASE、1.0.4-RELEASE：
 
 **监控时间有bug**，不建议使用此版本
 

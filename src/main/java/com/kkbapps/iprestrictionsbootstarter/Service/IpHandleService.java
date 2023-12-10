@@ -32,14 +32,56 @@ public class IpHandleService {
     // 创建日期格式化对象，指定格式
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+
+    public static Integer tag = 0;
+
     public static ConcurrentHashMap<String,IpRequestInfo> IPRequestMap = new ConcurrentHashMap<>();
 
     public static ConcurrentHashMap<String,Date> ForbidIPMap = new ConcurrentHashMap<>();
+
+
+    public static ConcurrentHashMap<String,String> BlackIPMap = new ConcurrentHashMap<>();
+
+
+    public static ConcurrentHashMap<String,String> WhiteIPMap = new ConcurrentHashMap<>();
+
+
+    /**
+     * 初始化
+     */
+    private void init()
+    {
+        // 初始化黑白名单
+        if(settingsConfig.getIpBlackList() != null) {
+            log.info("初始化ip黑名单");
+            for(int i=0;i<settingsConfig.getIpBlackList().length;i++) {
+                String ip = settingsConfig.getIpBlackList()[i];
+                BlackIPMap.put(ip,ip);
+            }
+        }
+        if(settingsConfig.getIpWhiteList() != null) {
+            log.info("初始化ip白名单");
+            for(int i=0;i<settingsConfig.getIpWhiteList().length;i++) {
+                String ip = settingsConfig.getIpWhiteList()[i];
+                WhiteIPMap.put(ip,ip);
+            }
+            log.info("ip白名单初始化完毕");
+        }
+
+        // 修改标志
+        tag = 1;
+    }
+
 
     /**
      * 进行IP校验
      */
     public void ipVerification(Method method, EnableIPLimit enableIpLimit) {
+
+        // 初始化
+        if(tag.equals(0))
+            init();
+
         IpRequestErrorException ipRequestErrorException = null;
 
         // 获取当前访问的ip
@@ -51,13 +93,19 @@ public class IpHandleService {
         // 访问方法全路径
         String path = method.getDeclaringClass() + "." + method.getName() + "^";
 
-        // todo 查找黑白名单
-
+        // 查找黑白名单
+        if(WhiteIPMap.get(ip) != null) return;
+        if(BlackIPMap.get(ip) != null) {
+            ipRequestErrorException = new IpRequestErrorException("ip：" + ip + " 已被加入黑名单");
+            ipRequestErrorException.setIp(ip);
+            ipRequestErrorException.setIpRequestErrorEnum(IpRequestErrorEnum.BLACK_LIST_IP);
+            throw ipRequestErrorException;
+        }
 
         // 判断ip是否已被封禁
         Date forbidDate = ForbidIPMap.get(path + ip);
         if(forbidDate != null) {
-            ipRequestErrorException = new IpRequestErrorException("ip：" + ip + "已被封禁");
+            ipRequestErrorException = new IpRequestErrorException("ip：" + ip + " 已被封禁");
             ipRequestErrorException.setIp(ip);
             ipRequestErrorException.setIpRequestErrorEnum(IpRequestErrorEnum.FORBID_IP);
             throw ipRequestErrorException;
@@ -78,7 +126,7 @@ public class IpHandleService {
                 enableIpLimit.count() : settingsConfig.getRequestCountLimit();
         if(ipRequestInfo.getCount() > requestCountLimit) {
             if(settingsConfig.isForbidIp()) ForbidIPMap.put(path + ip, new Date());
-            ipRequestErrorException = new IpRequestErrorException("ip：" + ip + "超出访问次数限制");
+            ipRequestErrorException = new IpRequestErrorException("ip：" + ip + " 超出访问次数限制");
             ipRequestErrorException.setIp(ip);
             ipRequestErrorException.setIpRequestErrorEnum(IpRequestErrorEnum.REQUEST_COUNT_EXCEEDED);
             throw ipRequestErrorException;
@@ -92,7 +140,7 @@ public class IpHandleService {
                 enableIpLimit.interval() : settingsConfig.getRequestIntervalLimit();
         if(nowTime.getTime() - lastTime.getTime() < requestIntervalLimit) {
             if(settingsConfig.isForbidIp()) ForbidIPMap.put(path + ip, new Date());
-            ipRequestErrorException = new IpRequestErrorException("ip：" + ip + "超出访问频率限制");
+            ipRequestErrorException = new IpRequestErrorException("ip：" + ip + " 超出访问频率限制");
             ipRequestErrorException.setIp(ip);
             ipRequestErrorException.setIpRequestErrorEnum(IpRequestErrorEnum.REQUEST_INTERVAL_EXCEEDED);
             throw ipRequestErrorException;
@@ -104,7 +152,7 @@ public class IpHandleService {
      * 定时清除与输出ip信息
      */
     @Scheduled(cron = "0 0 0 */#{kkbappsIPLimitSettingsConfig.cycle} *  ?")
-    public void reset(){
+    private void reset(){
 
         // 输出信息
         Date now_date = new Date();
@@ -142,7 +190,7 @@ public class IpHandleService {
     /**
      * 记录ip访问日志
      */
-    public void printRequestLog(Method method, String ip) {
+    private void printRequestLog(Method method, String ip) {
         log.info("=================ip访问记录=================");
         log.info("访问时间：" + dateFormat.format(new Date()));
         log.info("访问ip：" + ip);
