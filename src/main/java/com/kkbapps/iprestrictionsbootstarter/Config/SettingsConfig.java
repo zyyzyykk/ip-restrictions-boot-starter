@@ -30,13 +30,13 @@ public class SettingsConfig {
 
 
     /**
-     * 是否封禁IP
+     * 超出限制后是否封禁IP（默认不封禁）
      */
     private boolean forbidIp = false;
 
 
     /**
-     * 封禁IP是否为永久
+     * 是否永久封禁超出限制的IP（默认周期内封禁）
      */
     private boolean forbidIpForever = false;
 

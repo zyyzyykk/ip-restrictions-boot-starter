@@ -31,14 +31,14 @@
     {
       "name": "kkbapps.ip.forbidIp",
       "type": "java.lang.Boolean",
-      "description": "是否封禁IP",
+      "description": "超出限制后是否封禁IP（默认不封禁）",
       "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
       "defaultValue": false
     },
     {
       "name": "kkbapps.ip.forbidIpForever",
       "type": "java.lang.Boolean",
-      "description": "封禁IP是否为永久",
+      "description": "是否永久封禁超出限制的IP（默认周期内封禁）",
       "sourceType": "com.kkbapps.iprestrictionsbootstarter.Config.SettingsConfig",
       "defaultValue": false
     }

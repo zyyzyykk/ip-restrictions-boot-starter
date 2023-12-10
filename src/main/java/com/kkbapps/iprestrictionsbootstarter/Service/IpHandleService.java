@@ -7,6 +7,7 @@ import com.kkbapps.iprestrictionsbootstarter.Entity.IpRequestInfo;
 import com.kkbapps.iprestrictionsbootstarter.Enum.IpRequestErrorEnum;
 import com.kkbapps.iprestrictionsbootstarter.Exception.IpRequestErrorException;
 import com.kkbapps.iprestrictionsbootstarter.Utils.NetUtil;
+import com.kkbapps.iprestrictionsbootstarter.Utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -47,11 +48,14 @@ public class IpHandleService {
         // 记录访问日志
         printRequestLog(method, ip);
 
+        // 访问方法全路径
+        String path = method.getDeclaringClass() + "." + method.getName() + "^";
+
         // todo 查找黑白名单
 
 
         // 判断ip是否已被封禁
-        Date forbidDate = ForbidIPMap.get(ip);
+        Date forbidDate = ForbidIPMap.get(path + ip);
         if(forbidDate != null) {
             ipRequestErrorException = new IpRequestErrorException("ip：" + ip + "已被封禁");
             ipRequestErrorException.setIp(ip);
@@ -60,11 +64,11 @@ public class IpHandleService {
         }
 
         // 获取当前ip在周期内已访问的次数
-        IpRequestInfo ipRequestInfo = IPRequestMap.get(ip);
+        IpRequestInfo ipRequestInfo = IPRequestMap.get(path + ip);
 
         // 周期内第一次访问
         if(ipRequestInfo == null) {
-            IPRequestMap.put(ip,new IpRequestInfo(1,new Date()));
+            IPRequestMap.put(path + ip, new IpRequestInfo(1,new Date()));
             return;
         }
 
@@ -73,7 +77,7 @@ public class IpHandleService {
         Long requestCountLimit = enableIpLimit.count() > 0 ?
                 enableIpLimit.count() : settingsConfig.getRequestCountLimit();
         if(ipRequestInfo.getCount() > requestCountLimit) {
-            if(settingsConfig.isForbidIp()) ForbidIPMap.put(ip,new Date());
+            if(settingsConfig.isForbidIp()) ForbidIPMap.put(path + ip, new Date());
             ipRequestErrorException = new IpRequestErrorException("ip：" + ip + "超出访问次数限制");
             ipRequestErrorException.setIp(ip);
             ipRequestErrorException.setIpRequestErrorEnum(IpRequestErrorEnum.REQUEST_COUNT_EXCEEDED);
@@ -87,13 +91,12 @@ public class IpHandleService {
         Long requestIntervalLimit = enableIpLimit.interval() >= 0 ?
                 enableIpLimit.interval() : settingsConfig.getRequestIntervalLimit();
         if(nowTime.getTime() - lastTime.getTime() < requestIntervalLimit) {
-            if(settingsConfig.isForbidIp()) ForbidIPMap.put(ip,new Date());
+            if(settingsConfig.isForbidIp()) ForbidIPMap.put(path + ip, new Date());
             ipRequestErrorException = new IpRequestErrorException("ip：" + ip + "超出访问频率限制");
             ipRequestErrorException.setIp(ip);
             ipRequestErrorException.setIpRequestErrorEnum(IpRequestErrorEnum.REQUEST_INTERVAL_EXCEEDED);
             throw ipRequestErrorException;
         }
-
 
     }
 
@@ -107,14 +110,26 @@ public class IpHandleService {
         Date now_date = new Date();
         log.info("=================周期内访问ip信息=================");
         log.info("当前时间：" + dateFormat.format(now_date));
-        IPRequestMap.forEach((ip, ipRequestInfo) -> {
-            log.info("ip " + ip + "：" + ipRequestInfo.getCount() + "次 " + dateFormat.format(ipRequestInfo.getLastDate()));
+        IPRequestMap.forEach((key, ipRequestInfo) -> {
+            String path = "";
+            String ip = "";
+            StringUtil.parse(key,path,ip);
+            log.info("ip：" + ip);
+            log.info("访问方法：" + path);
+            log.info("访问次数：" + ipRequestInfo.getCount() + "次");
+            log.info("最后访问时间：" + dateFormat.format(ipRequestInfo.getLastDate()));
+            log.info("-----------------------------------------------");
         });
         log.info("===============================================");
         log.info("=================周期内封禁ip信息=================");
         log.info("当前时间：" + dateFormat.format(now_date));
-        ForbidIPMap.forEach((ip, date) -> {
-            log.info("ip " + ip + "：" + dateFormat.format(date));
+        ForbidIPMap.forEach((key, date) -> {
+            String path = "";
+            String ip = "";
+            StringUtil.parse(key,path,ip);
+            log.info("封禁ip：" + ip);
+            log.info("封禁方法：" + path);
+            log.info("-----------------------------------------------");
         });
         log.info("===============================================");
 
@@ -132,7 +147,7 @@ public class IpHandleService {
         log.info("访问时间：" + dateFormat.format(new Date()));
         log.info("访问ip：" + ip);
         log.info("访问路径：" + httpServletRequest.getRequestURL().toString());
-        log.info("访问方法：" + method.getDeclaringClass());
+        log.info("访问方法：" + method.getDeclaringClass() + "." + method.getName());
         log.info("==========================================");
     }
 
