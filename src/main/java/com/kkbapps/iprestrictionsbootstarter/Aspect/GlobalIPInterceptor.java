@@ -2,11 +2,11 @@ package com.kkbapps.iprestrictionsbootstarter.Aspect;
 
 
 import com.kkbapps.iprestrictionsbootstarter.Annotation.EnableIPLimit;
-import com.kkbapps.iprestrictionsbootstarter.Exception.IpRequestErrorException;
+import com.kkbapps.iprestrictionsbootstarter.Service.IPContext;
 import com.kkbapps.iprestrictionsbootstarter.Service.IpHandleService;
-import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +28,8 @@ public class GlobalIPInterceptor {
     private void requestInterceptor() {
     }
 
-    @Before("requestInterceptor()")
-    public void DoInterceptor(JoinPoint point) throws NoSuchMethodException, IpRequestErrorException {
+    @Around("requestInterceptor()")
+    public Object DoInterceptor(ProceedingJoinPoint point) throws Throwable {
         Object target = point.getTarget();
         Object[] args = point.getArgs();
         String methodName = point.getSignature().getName();
@@ -37,10 +37,16 @@ public class GlobalIPInterceptor {
         Method method = target.getClass().getMethod(methodName, parameterTypes);
         EnableIPLimit enableIpLimit = method.getAnnotation(EnableIPLimit.class);
 
-        if(null == enableIpLimit) return;
+        if(enableIpLimit != null) {
+            // 进行IP检测与拦截
+            ipHandleService.ipVerification(method, enableIpLimit);
+        }
 
-        // 进行IP检测与拦截
-        ipHandleService.ipVerification(method, enableIpLimit);
+        Object ret = point.proceed();
+
+        IPContext.remove();
+
+        return ret;
     }
 
 

@@ -39,9 +39,7 @@ public class IpHandleService {
 
     public static ConcurrentHashMap<String,Date> ForbidIPMap = new ConcurrentHashMap<>();
 
-
     public static ConcurrentHashMap<String,String> BlackIPMap = new ConcurrentHashMap<>();
-
 
     public static ConcurrentHashMap<String,String> WhiteIPMap = new ConcurrentHashMap<>();
 
@@ -58,6 +56,7 @@ public class IpHandleService {
                 String ip = settingsConfig.getIpBlackList()[i];
                 BlackIPMap.put(ip,ip);
             }
+            log.info("ip黑名单初始化完毕");
         }
         if(settingsConfig.getIpWhiteList() != null) {
             log.info("初始化ip白名单");
@@ -111,12 +110,17 @@ public class IpHandleService {
             throw ipRequestErrorException;
         }
 
-        // 获取当前ip在周期内已访问的次数
+        // 获取当前ip在周期内已访问信息
         IpRequestInfo ipRequestInfo = IPRequestMap.get(path + ip);
 
         // 周期内第一次访问
         if(ipRequestInfo == null) {
-            IPRequestMap.put(path + ip, new IpRequestInfo(1,new Date()));
+            ipRequestInfo = new IpRequestInfo();
+            ipRequestInfo.setIp(ip);
+            ipRequestInfo.setCount(1);
+            ipRequestInfo.setLastDate(new Date());
+            IPRequestMap.put(path + ip, ipRequestInfo);
+            IPContext.set(ipRequestInfo);
             return;
         }
 
@@ -146,6 +150,7 @@ public class IpHandleService {
             throw ipRequestErrorException;
         }
 
+        IPContext.set(ipRequestInfo);
     }
 
     /**
