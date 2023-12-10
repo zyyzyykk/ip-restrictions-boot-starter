@@ -1,11 +1,15 @@
 # ip-restrictions-boot-starter
 > springboot项目中实现请求IP自动限制与拦截
 >
+> Implementing IP request interception and restriction in Spring Boot.
+>
 > 作者：zyyzyykk
 >
-> 网站：http://git.kkbapps.com/kk/ip-restrictions-boot-starter
+> 源码：https://git.kkbapps.com/kk/ip-restrictions-boot-starter
 >
-> 更新时间：2023-11-19
+> maven仓库地址：http://git.kkbapps.com/kk/ip-restrictions-boot-starter
+>
+> 更新时间：2023-12-10
 
 ### 💪 使用
 
@@ -17,7 +21,7 @@
     <groupId>com.kkbapps</groupId>
     <artifactId>ip-restrictions-boot-starter</artifactId>
     <!-- 建议引入最新RELEASE版本 -->
-    <version>1.0.8-RELEASE</version>
+    <version>1.1.0-RELEASE</version>
 </dependency>
 ```
 
@@ -37,24 +41,28 @@ public String needIPLimit(String param) {
 
 ```properties
 # 相关配置以kkbapps.ip开头，其他配置见提示
-kkbapps.ip.forbid-ip=true	# 是否封禁超出限制的ip，监控周期内有效
+kkbapps.ip.forbid-ip=true	# 是否封禁超出限制的ip，默认监控周期内有效
 ```
 
 ### 💡 说明
 
 1.拦截采用AOP实现，**@EnableIPLimit** 注解建议添加在 Controller层、Service层的方法上，防止动态代理失效
 
-2.当某一ip超出限制，会抛出 **IpRequestErrorException** 异常
+2.当请求访问超出限制，会抛出 **IpRequestErrorException** 异常
 
 ### 👨‍💻 更新记录
 
-##### 1.0.8-RELEASE：latest
+##### 1.1.0-RELEASE：latest
+
+监控粒度由请求ip变为请求ip+请求方法，实现更细粒度的监控
+
+##### 1.0.8-RELEASE：
 
 更新了获取请求ip的方法，废除是否使用nginx代理的配置属性
 
 ##### 1.0.5-RELEASE：修复监控时间bug
 
-更新了监控时间最小单位为天，默认监控周期为一天，取值范围（1-30）
+修复监控时间bug，设置监控时间最小单位为天，默认监控周期为一天，取值范围（1-30）
 
 ##### 1.0.4-RELEASE、1.0.3-RELEASE：
 
