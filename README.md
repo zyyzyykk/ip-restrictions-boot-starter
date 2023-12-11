@@ -1,15 +1,15 @@
 # ip-restrictions-boot-starter
-> SpringBoot项目中实现请求IP自动限制与拦截
+> SpringBoot项目中实现对请求IP的自动限制与拦截
 >
 > Implementing IP request interception and restriction in Spring Boot.
 >
-> 作者：zyyzyykk
+> 作者：[zyyzyykk](https://github.com/zyyzyykk)
 >
 > 源码：https://git.kkbapps.com/kk/ip-restrictions-boot-starter
 >
-> maven仓库地址：http://git.kkbapps.com/kk/ip-restrictions-boot-starter
+> maven仓库地址：https://mvnrepository.com/artifact/com.kkbapps/ip-restrictions-boot-starter
 >
-> 更新时间：2023-12-10
+> 更新时间：2023-12-11
 
 ### 💪 使用
 
@@ -21,7 +21,7 @@
     <groupId>com.kkbapps</groupId>
     <artifactId>ip-restrictions-boot-starter</artifactId>
     <!-- 建议引入最新RELEASE版本 -->
-    <version>1.1.2-RELEASE</version>
+    <version>1.1.3-RELEASE</version>
 </dependency>
 ```
 
@@ -65,17 +65,37 @@ kkbapps.ip.forbid-ip=true	# 是否封禁超出限制的ip，默认监控周期�
         - 192.168.42.2
   ```
 
+5.获取ip请求信息：**1.1.3及以上版本**
+
+```java
+@EnableIPLimit(count = 100, interval = 1000)
+public String needIPLimit() {
+    // 获取ip请求信息
+    IpRequestInfo ipRequestInfo = IPContext.get();
+    // 请求ip: 192.168.42.1
+	System.out.println(ipRequestInfo.getIp());
+    // ip周期内访问次数: 5
+	System.out.println(ipRequestInfo.getCount());
+    // ip最近访问时间: Mon Dec 11 19:27:39 CST 2023
+	System.out.println(ipRequestInfo.getLastDate());
+}
+```
+
 ### 💡 说明
 
 1.`ip-restrictions-boot-starter` 是一个基于SpringBoot框架的maven依赖包，能够对特定方法、特定IP的请求进行限制与拦截
 
 2.拦截采用AOP实现，**@EnableIPLimit** 注解建议添加在 Controller层、Service层的方法上，防止动态代理失效
 
-3.当请求访问超出限制，会抛出 **IpRequestErrorException** 异常，可对此异常进行捕获
+3.当请求超出设定的限制，会抛出 **IpRequestErrorException** 异常，可对此异常进行自定义捕获
 
 ### 👨‍💻 更新记录
 
-##### 1.1.2-RELEASE：latest
+##### 1.1.3-RELEASE：latest
+
+新增在添加有 **@EnableIPLimit** 注解的方法中获取本次ip请求信息
+
+##### 1.1.2-RELEASE：
 
 新增ip黑白名单配置：黑名单ip直接拒绝请求，白名单ip直接放行
 
@@ -93,7 +113,7 @@ kkbapps.ip.forbid-ip=true	# 是否封禁超出限制的ip，默认监控周期�
 
 ##### 1.0.3-RELEASE、1.0.4-RELEASE：
 
-**监控时间有bug**，不建议使用此版本
+**监控时间有bug**，不建议使用
 
 ##### 1.0.2-RELEASE：
 

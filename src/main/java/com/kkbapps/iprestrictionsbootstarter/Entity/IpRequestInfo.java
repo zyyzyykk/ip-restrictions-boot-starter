@@ -17,11 +17,6 @@ public class IpRequestInfo {
     private String ip;
 
     /**
-     * ip归属地
-     */
-    private String location;
-
-    /**
      * 周期内访问次数
      */
     private Integer count;
