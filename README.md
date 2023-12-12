@@ -73,11 +73,11 @@ public String needIPLimit() {
     // 获取ip请求信息
     IpRequestInfo ipRequestInfo = IPContext.get();
     // 请求ip: 192.168.42.1
-	System.out.println(ipRequestInfo.getIp());
+    System.out.println(ipRequestInfo.getIp());
     // ip周期内访问次数: 5
-	System.out.println(ipRequestInfo.getCount());
+    System.out.println(ipRequestInfo.getCount());
     // ip最近访问时间: Mon Dec 11 19:27:39 CST 2023
-	System.out.println(ipRequestInfo.getLastDate());
+    System.out.println(ipRequestInfo.getLastDate());
 }
 ```
 
