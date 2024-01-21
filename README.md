@@ -1,7 +1,7 @@
 # ip-restrictions-boot-starter
 > ip-restrictions-boot-starter，一个基于SpringBoot框架的maven依赖包，能够对特定方法、特定IP的请求进行限制与拦截。
 >
-> Ip-restrictions-boot-starter is a Maven dependency package based on SpringBoot, which can restrict and intercept requests for specific methods and IPs.
+> Ip-restrictions-boot-starter is a Maven dependency package based on SpringBoot, which can restrict  and intercept requests for specific methods and IPs.
 >
 > 作者：[zyyzyykk](https://github.com/zyyzyykk)
 >
@@ -85,7 +85,7 @@ public String needIPLimit() {
 
 1.`ip-restrictions-boot-starter` 是一个基于SpringBoot框架的maven依赖包，能够对特定方法、特定IP的请求进行限制与拦截
 
-2.拦截采用AOP实现，**@EnableIPLimit** 注解建议添加在 Controller层、Service层的方法上，防止动态代理失效
+2.拦截采用AOP实现，**@EnableIPLimit** 注解建议添加在 `Controller` 层的方法上，防止动态代理失效
 
 3.当请求超出设定的限制，会抛出 **IpRequestErrorException** 异常，可对此异常进行自定义捕获
 
