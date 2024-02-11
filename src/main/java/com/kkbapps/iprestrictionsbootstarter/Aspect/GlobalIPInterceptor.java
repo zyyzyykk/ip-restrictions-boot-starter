@@ -33,7 +33,6 @@ public class GlobalIPInterceptor {
     @Around("requestInterceptor()")
     public Object DoInterceptor(ProceedingJoinPoint point) throws Throwable {
         Object target = point.getTarget();
-        Object[] args = point.getArgs();
         String methodName = point.getSignature().getName();
         Class<?>[] parameterTypes = ((MethodSignature) point.getSignature()).getMethod().getParameterTypes();
         Method method = target.getClass().getMethod(methodName, parameterTypes);
@@ -44,11 +43,11 @@ public class GlobalIPInterceptor {
             ipHandleService.ipVerification(method, enableIpLimit);
         }
 
-        Object ret = point.proceed();
-
-        IPContext.remove();
-
-        return ret;
+        try {
+            return point.proceed();
+        } finally {
+            IPContext.remove();
+        }
     }
 
 
