@@ -5,11 +5,11 @@
 >
 > 作者：[zyyzyykk](https://github.com/zyyzyykk)
 >
-> 源码：https://git.kkbapps.com/kk/ip-restrictions-boot-starter
+> 源代码：https://github.com/zyyzyykk/ip-restrictions-boot-starter
 >
 > maven仓库地址：https://mvnrepository.com/artifact/com.kkbapps/ip-restrictions-boot-starter
 >
-> 更新时间：2023-12-11
+> 更新时间：2024-02-27
 
 ### 💪 使用
 
@@ -21,7 +21,7 @@
     <groupId>com.kkbapps</groupId>
     <artifactId>ip-restrictions-boot-starter</artifactId>
     <!-- 建议引入最新RELEASE版本 -->
-    <version>1.1.3-RELEASE</version>
+    <version>1.1.4-RELEASE</version>
 </dependency>
 ```
 
@@ -85,13 +85,17 @@ public String needIPLimit() {
 
 1.`ip-restrictions-boot-starter` 是一个基于SpringBoot框架的maven依赖包，能够对特定方法、特定IP的请求进行限制与拦截
 
-2.拦截采用AOP实现，**@EnableIPLimit** 注解建议添加在 `Controller` 层的方法上，防止动态代理失效
+2.拦截采用AOP实现，**@EnableIPLimit** 注解建议添加在 `Controller` 层的方法上
 
 3.当请求超出设定的限制，会抛出 **IpRequestErrorException** 异常，可对此异常进行自定义捕获
 
 ### 👨‍💻 更新记录
 
-##### 1.1.3-RELEASE：latest
+##### 1.1.4-RELEASE：latest
+
+在AOP类中添加 `@Order(1)` 注解，确保拦截为最外层
+
+##### 1.1.3-RELEASE：
 
 新增在添加有 **@EnableIPLimit** 注解的方法中获取本次ip请求信息
 
