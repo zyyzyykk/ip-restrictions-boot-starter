@@ -11,6 +11,17 @@
 >
 > 更新时间：2024-02-27
 
+<p align="center"><a href="https://mvnrepository.com/artifact/com.kkbapps/ip-restrictions-boot-starter" target="_blank" rel="noopener noreferrer"><img width="100" src="https://img.kkbapps.com/logo/ip-restrictions-boot-starter.png" alt="ip-restrictions-boot-starter logo"></a></p>
+
+<p align="center">
+  <a href="https://mvnrepository.com/artifact/com.kkbapps/ip-restrictions-boot-starter"><img src="https://img.shields.io/badge/maven_repository-1.1.4--RELEASE-blue" alt="Maven Repository"></a>
+  <a href="https://www.oracle.com/cn/java/technologies/downloads/#java8-windows"><img src="https://img.shields.io/badge/jdk-1.8-orange" alt="JDK Version"></a>
+  <a href="https://spring.io/projects/spring-boot"><img src="https://img.shields.io/badge/springboot-2.7.16-green?color=6db33f" alt="SpringBoot Version"></a>
+  <a href="https://opensource.org/license/MIT"><img src="https://img.shields.io/badge/licence-MIT-red" alt="MIT Licence"></a>
+  <a href="https://github.com/zyyzyykk/ip-restrictions-boot-starter"><img src="https://img.shields.io/badge/gitHub_star-5+-yellow" alt="GitHub"></a>
+</p>
+
+
 ### 💪 使用
 
 1.在Springboot项目中引入依赖：
