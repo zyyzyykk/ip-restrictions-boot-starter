@@ -18,8 +18,9 @@
   <a href="https://www.oracle.com/cn/java/technologies/downloads/#java8-windows"><img src="https://img.shields.io/badge/jdk-1.8-orange" alt="JDK Version"></a>
   <a href="https://spring.io/projects/spring-boot"><img src="https://img.shields.io/badge/springboot-2.7.16-green?color=6db33f" alt="SpringBoot Version"></a>
   <a href="https://opensource.org/license/MIT"><img src="https://img.shields.io/badge/licence-MIT-red" alt="MIT Licence"></a>
-  <a href="https://github.com/zyyzyykk/kkTerminal"><img src="https://img.shields.io/badge/gitHub_star-5+-yellow" alt="GitHub"></a>
+  <a href="https://github.com/zyyzyykk/ip-restrictions-boot-starter"><img src="https://img.shields.io/badge/gitHub_star-5+-yellow" alt="GitHub"></a>
 </p>
+
 
 ### 💪 使用
 
