@@ -14,12 +14,13 @@
 <p align="center"><a href="https://mvnrepository.com/artifact/com.kkbapps/ip-restrictions-boot-starter" target="_blank" rel="noopener noreferrer"><img width="100" src="https://img.kkbapps.com/logo/ip-restrictions-boot-starter.png" alt="ip-restrictions-boot-starter logo"></a></p>
 
 <p align="center">
-  <a href="https://mvnrepository.com/artifact/com.kkbapps/ip-restrictions-boot-starter"><img src="https://img.shields.io/badge/maven_repository-1.1.4--RELEASE-blue" alt="Maven Repository"></a>
+  <a href="https://mvnrepository.com/artifact/com.kkbapps/ip-restrictions-boot-starter"><img src="https://img.shields.io/maven-central/v/com.kkbapps/ip-restrictions-boot-starter" alt="Maven Repository"></a>
   <a href="https://www.oracle.com/cn/java/technologies/downloads/#java8-windows"><img src="https://img.shields.io/badge/jdk-1.8-orange" alt="JDK Version"></a>
   <a href="https://spring.io/projects/spring-boot"><img src="https://img.shields.io/badge/springboot-2.7.16-green?color=6db33f" alt="SpringBoot Version"></a>
   <a href="https://opensource.org/license/MIT"><img src="https://img.shields.io/badge/licence-MIT-red" alt="MIT Licence"></a>
-  <a href="https://github.com/zyyzyykk/ip-restrictions-boot-starter"><img src="https://img.shields.io/badge/gitHub_star-5+-yellow" alt="GitHub"></a>
+  <a href="https://github.com/zyyzyykk/ip-restrictions-boot-starter"><img src="https://img.shields.io/github/stars/zyyzyykk/ip-restrictions-boot-starter" alt="GitHub"></a>
 </p>
+<p align="center">简体中文 ｜ <a href="./EN/README.md" >English</a></p>
 
 
 ### 💪 使用
@@ -46,7 +47,7 @@ public String needIPLimit(String param) {
 - 注解参数说明：
   - count：监控周期内同一IP最大访问次数
   - interval：监控周期内同一IP两次访问最小间隔时间（毫秒）
-  - 若不添加注解参数，则配置取决于application.properties中的自定义配置以及默认值
+  - 若不添加注解参数，则配置取决于 `application.properties` 中的自定义配置以及默认值
 
 3.在 `application.properties` 中可进行自定义配置属性：
 
@@ -57,7 +58,7 @@ kkbapps.ip.forbid-ip=true	# 是否封禁超出限制的ip，默认监控周期�
 
 4.配置ip黑白名单：**1.1.2及以上版本**
 
-- .properties文件中配置：
+- `.properties` 文件中配置：
 
   ```properties
   # 配置ip黑名单
@@ -65,7 +66,7 @@ kkbapps.ip.forbid-ip=true	# 是否封禁超出限制的ip，默认监控周期�
   kkbapps.ip.ip-black-list[1]=192.168.42.2
   ```
 
-- .yml文件中配置：
+- `.yml` 文件中配置：
 
   ```yml
   # 配置ip黑名单
